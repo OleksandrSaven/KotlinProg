@@ -1,19 +1,25 @@
-name: Java CI
+name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - '*'
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-      - name: Set up JDK 11
+      - name: Set up JDK
         uses: actions/setup-java@v2
         with:
-          java-version: '17'
+          distribution: 'adopt'
+          java-version: '11'
 
-      - name: Build with Gradle # Крок для збірки проекту за допомогою Gradle
-        run: ./gradlew build --info
+      - name: Build with Gradle
+        run: ./gradlew build
